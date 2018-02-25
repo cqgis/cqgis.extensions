@@ -6,6 +6,10 @@
 
 这个项目是.Net项目的扩展方法集合
 
+## nuget
+
+[cqgis.extensions](https://www.nuget.org/packages/cqgis.extensions/)
+
  
 ## string
 
