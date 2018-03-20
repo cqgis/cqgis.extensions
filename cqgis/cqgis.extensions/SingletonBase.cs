@@ -11,7 +11,7 @@ namespace cqgis.extensions
         /// <summary>
         ///  cqgis: 用于线程之间安全锁定的变量
         /// </summary>
-        private static readonly object SyncRoot = new Object();
+        private static readonly object _syncRoot = new Object();
 
         /// <summary>
         ///  cqgis: 多个线程共享的类实例
@@ -26,12 +26,15 @@ namespace cqgis.extensions
         {
             get
             {
-                if(_instance == null)
+                if (_instance == null)
                 {
-                    lock (SyncRoot)
+                    lock (_syncRoot)
                     {
-                        _instance = Activator.CreateInstance(typeof(T), true);
-                        (_instance as ISingleInit)?.Init();
+                        if (_instance == null)
+                        {
+                            _instance = Activator.CreateInstance(typeof(T), true);
+                            (_instance as ISingleInit)?.Init();
+                        }
                     }
                 }
                 return (T)_instance;
